@@ -1,0 +1,1045 @@
+{
+  "date": "2026-08-12",
+  "metrics": {
+    "360ONE": {
+      "ATR": "32.65",
+      "AvgVol": "144740.79",
+      "YestVol": "194216"
+    },
+    "ABB": {
+      "ATR": "231.19",
+      "AvgVol": "20846.07",
+      "YestVol": "6546"
+    },
+    "ABCAPITAL": {
+      "ATR": "11.93",
+      "AvgVol": "263365.50",
+      "YestVol": "82267"
+    },
+    "ADANIENSOL": {
+      "ATR": "44.61",
+      "AvgVol": "1803323.36",
+      "YestVol": "2222288"
+    },
+    "ADANIENT": {
+      "ATR": "63.97",
+      "AvgVol": "1054889.00",
+      "YestVol": "1422452"
+    },
+    "ADANIGREEN": {
+      "ATR": "40.36",
+      "AvgVol": "2375203.86",
+      "YestVol": "3232524"
+    },
+    "ADANIPORTS": {
+      "ATR": "38.21",
+      "AvgVol": "2620656.64",
+      "YestVol": "2263466"
+    },
+    "ADANIPOWER": {
+      "ATR": "4.46",
+      "AvgVol": "1142374.29",
+      "YestVol": "912371"
+    },
+    "ALKEM": {
+      "ATR": "117.96",
+      "AvgVol": "98937.71",
+      "YestVol": "115598"
+    },
+    "AMBER": {
+      "ATR": "189.18",
+      "AvgVol": "241096.50",
+      "YestVol": "290400"
+    },
+    "AMBUJACEM": {
+      "ATR": "11.05",
+      "AvgVol": "2812968.07",
+      "YestVol": "1440747"
+    },
+    "ANGELONE": {
+      "ATR": "8.07",
+      "AvgVol": "5223096.43",
+      "YestVol": "6599125"
+    },
+    "APLAPOLLO": {
+      "ATR": "54.15",
+      "AvgVol": "60766.57",
+      "YestVol": "19420"
+    },
+    "APOLLOHOSP": {
+      "ATR": "154.32",
+      "AvgVol": "270236.29",
+      "YestVol": "562067"
+    },
+    "ASHOKLEY": {
+      "ATR": "4.57",
+      "AvgVol": "19411613.00",
+      "YestVol": "16455927"
+    },
+    "ASIANPAINT": {
+      "ATR": "62.02",
+      "AvgVol": "1189479.57",
+      "YestVol": "951134"
+    },
+    "ASTRAL": {
+      "ATR": "31.75",
+      "AvgVol": "398945.57",
+      "YestVol": "228442"
+    },
+    "AUBANK": {
+      "ATR": "28.98",
+      "AvgVol": "1930704.79",
+      "YestVol": "1875527"
+    },
+    "AUROPHARMA": {
+      "ATR": "41.04",
+      "AvgVol": "1031764.07",
+      "YestVol": "420527"
+    },
+    "AXISBANK": {
+      "ATR": "19.89",
+      "AvgVol": "6253645.36",
+      "YestVol": "5843702"
+    },
+    "BAJAJ-AUTO": {
+      "ATR": "221.59",
+      "AvgVol": "20815.71",
+      "YestVol": "11640"
+    },
+    "BAJAJFINSV": {
+      "ATR": "49.71",
+      "AvgVol": "1697796.79",
+      "YestVol": "1058625"
+    },
+    "BAJAJHLDNG": {
+      "ATR": "231.80",
+      "AvgVol": "2955.57",
+      "YestVol": "1717"
+    },
+    "BAJFINANCE": {
+      "ATR": "34.29",
+      "AvgVol": "11440002.64",
+      "YestVol": "6523358"
+    },
+    "BANDHANBNK": {
+      "ATR": "4.76",
+      "AvgVol": "14726492.21",
+      "YestVol": "5260473"
+    },
+    "BANKBARODA": {
+      "ATR": "4.82",
+      "AvgVol": "514065.00",
+      "YestVol": "319345"
+    },
+    "BANKINDIA": {
+      "ATR": "3.23",
+      "AvgVol": "8311591.64",
+      "YestVol": "6783716"
+    },
+    "BDL": {
+      "ATR": "33.52",
+      "AvgVol": "61414.86",
+      "YestVol": "31147"
+    },
+    "BEL": {
+      "ATR": "7.09",
+      "AvgVol": "14591474.86",
+      "YestVol": "6803132"
+    },
+    "BHARATFORG": {
+      "ATR": "64.37",
+      "AvgVol": "1282321.71",
+      "YestVol": "4011397"
+    },
+    "BHARTIARTL": {
+      "ATR": "35.70",
+      "AvgVol": "527132.07",
+      "YestVol": "3433793"
+    },
+    "BHEL": {
+      "ATR": "10.38",
+      "AvgVol": "6886785.57",
+      "YestVol": "5246729"
+    },
+    "BIOCON": {
+      "ATR": "9.99",
+      "AvgVol": "339863.50",
+      "YestVol": "95642"
+    },
+    "BLUESTARCO": {
+      "ATR": "57.33",
+      "AvgVol": "668426.36",
+      "YestVol": "756778"
+    },
+    "BOSCHLTD": {
+      "ATR": "1177.14",
+      "AvgVol": "42670.00",
+      "YestVol": "150509"
+    },
+    "BPCL": {
+      "ATR": "6.52",
+      "AvgVol": "5324976.50",
+      "YestVol": "2733485"
+    },
+    "BRITANNIA": {
+      "ATR": "132.22",
+      "AvgVol": "32370.29",
+      "YestVol": "7858"
+    },
+    "BSE": {
+      "ATR": "105.38",
+      "AvgVol": "3388022.50",
+      "YestVol": "5475430"
+    },
+    "CAMS": {
+      "ATR": "20.94",
+      "AvgVol": "1313851.71",
+      "YestVol": "681139"
+    },
+    "CANBK": {
+      "ATR": "2.61",
+      "AvgVol": "1193507.29",
+      "YestVol": "877430"
+    },
+    "CDSL": {
+      "ATR": "25.55",
+      "AvgVol": "1102000.00",
+      "YestVol": "970597"
+    },
+    "CGPOWER": {
+      "ATR": "29.17",
+      "AvgVol": "4477505.86",
+      "YestVol": "1064285"
+    },
+    "CHOLAFIN": {
+      "ATR": "66.56",
+      "AvgVol": "1917622.43",
+      "YestVol": "1593186"
+    },
+    "CIPLA": {
+      "ATR": "29.57",
+      "AvgVol": "1484332.86",
+      "YestVol": "958909"
+    },
+    "COALINDIA": {
+      "ATR": "6.43",
+      "AvgVol": "1323830.07",
+      "YestVol": "376501"
+    },
+    "COCHINSHIP": {
+      "ATR": "32.37",
+      "AvgVol": "1057517.07",
+      "YestVol": "462009"
+    },
+    "COFORGE": {
+      "ATR": "60.09",
+      "AvgVol": "319179.21",
+      "YestVol": "54555"
+    },
+    "COLPAL": {
+      "ATR": "52.29",
+      "AvgVol": "433796.93",
+      "YestVol": "272703"
+    },
+    "CONCOR": {
+      "ATR": "13.02",
+      "AvgVol": "343941.93",
+      "YestVol": "78508"
+    },
+    "CROMPTON": {
+      "ATR": "8.52",
+      "AvgVol": "4218780.21",
+      "YestVol": "1599469"
+    },
+    "CUMMINSIND": {
+      "ATR": "140.21",
+      "AvgVol": "468429.07",
+      "YestVol": "370560"
+    },
+    "DABUR": {
+      "ATR": "8.64",
+      "AvgVol": "2567613.93",
+      "YestVol": "1132096"
+    },
+    "DALBHARAT": {
+      "ATR": "45.20",
+      "AvgVol": "22976.93",
+      "YestVol": "1757"
+    },
+    "DELHIVERY": {
+      "ATR": "14.55",
+      "AvgVol": "4181953.71",
+      "YestVol": "3139145"
+    },
+    "DIVISLAB": {
+      "ATR": "203.95",
+      "AvgVol": "43440.86",
+      "YestVol": "16382"
+    },
+    "DIXON": {
+      "ATR": "359.64",
+      "AvgVol": "332327.93",
+      "YestVol": "140977"
+    },
+    "DLF": {
+      "ATR": "16.43",
+      "AvgVol": "3405054.93",
+      "YestVol": "2776692"
+    },
+    "DMART": {
+      "ATR": "106.31",
+      "AvgVol": "641118.00",
+      "YestVol": "413763"
+    },
+    "DRREDDY": {
+      "ATR": "25.49",
+      "AvgVol": "2334380.86",
+      "YestVol": "3936813"
+    },
+    "EICHERMOT": {
+      "ATR": "159.29",
+      "AvgVol": "580153.57",
+      "YestVol": "600951"
+    },
+    "ETERNAL": {
+      "ATR": "9.89",
+      "AvgVol": "33885348.64",
+      "YestVol": "20749569"
+    },
+    "FEDERALBNK": {
+      "ATR": "6.70",
+      "AvgVol": "4841633.43",
+      "YestVol": "4843398"
+    },
+    "FORCEMOT": {
+      "ATR": "542.36",
+      "AvgVol": "99744.36",
+      "YestVol": "41651"
+    },
+    "FORTIS": {
+      "ATR": "22.72",
+      "AvgVol": "1368688.43",
+      "YestVol": "1666135"
+    },
+    "GAIL": {
+      "ATR": "4.55",
+      "AvgVol": "14761223.07",
+      "YestVol": "15482707"
+    },
+    "GLENMARK": {
+      "ATR": "56.91",
+      "AvgVol": "512468.50",
+      "YestVol": "284670"
+    },
+    "GMRAIRPORT": {
+      "ATR": "2.07",
+      "AvgVol": "9468780.86",
+      "YestVol": "10991427"
+    },
+    "GODFRYPHLP": {
+      "ATR": "93.32",
+      "AvgVol": "856222.93",
+      "YestVol": "327551"
+    },
+    "GODREJCP": {
+      "ATR": "25.61",
+      "AvgVol": "88074.79",
+      "YestVol": "25650"
+    },
+    "GODREJPROP": {
+      "ATR": "62.49",
+      "AvgVol": "41756.21",
+      "YestVol": "178978"
+    },
+    "GRASIM": {
+      "ATR": "81.52",
+      "AvgVol": "632603.21",
+      "YestVol": "755928"
+    },
+    "GVT&D": {
+      "ATR": "188.73",
+      "AvgVol": "1207533.14",
+      "YestVol": "798491"
+    },
+    "HAL": {
+      "ATR": "96.81",
+      "AvgVol": "933569.79",
+      "YestVol": "447081"
+    },
+    "HAVELLS": {
+      "ATR": "21.36",
+      "AvgVol": "1030822.00",
+      "YestVol": "473568"
+    },
+    "HCLTECH": {
+      "ATR": "33.61",
+      "AvgVol": "3000467.64",
+      "YestVol": "1828636"
+    },
+    "HDFCAMC": {
+      "ATR": "51.47",
+      "AvgVol": "608865.86",
+      "YestVol": "1036363"
+    },
+    "HDFCBANK": {
+      "ATR": "9.79",
+      "AvgVol": "30369255.14",
+      "YestVol": "29154365"
+    },
+    "HDFCLIFE": {
+      "ATR": "9.33",
+      "AvgVol": "3966106.57",
+      "YestVol": "3642366"
+    },
+    "HEROMOTOCO": {
+      "ATR": "153.17",
+      "AvgVol": "59645.64",
+      "YestVol": "23856"
+    },
+    "HINDALCO": {
+      "ATR": "21.88",
+      "AvgVol": "5266706.57",
+      "YestVol": "4831839"
+    },
+    "HINDPETRO": {
+      "ATR": "8.30",
+      "AvgVol": "648577.36",
+      "YestVol": "451970"
+    },
+    "HINDUNILVR": {
+      "ATR": "46.49",
+      "AvgVol": "104607.00",
+      "YestVol": "46145"
+    },
+    "HINDZINC": {
+      "ATR": "15.09",
+      "AvgVol": "309503.07",
+      "YestVol": "245438"
+    },
+    "HYUNDAI": {
+      "ATR": "56.01",
+      "AvgVol": "147499.57",
+      "YestVol": "26425"
+    },
+    "ICICIBANK": {
+      "ATR": "22.96",
+      "AvgVol": "12184665.64",
+      "YestVol": "10471914"
+    },
+    "ICICIGI": {
+      "ATR": "48.76",
+      "AvgVol": "985292.64",
+      "YestVol": "514500"
+    },
+    "ICICIPRULI": {
+      "ATR": "9.88",
+      "AvgVol": "178422.07",
+      "YestVol": "180176"
+    },
+    "IDEA": {
+      "ATR": "0.31",
+      "AvgVol": "16890051.07",
+      "YestVol": "24590626"
+    },
+    "IDFCFIRSTB": {
+      "ATR": "1.94",
+      "AvgVol": "2334308.00",
+      "YestVol": "233859"
+    },
+    "IEX": {
+      "ATR": "3.48",
+      "AvgVol": "6986039.71",
+      "YestVol": "1905837"
+    },
+    "INDHOTEL": {
+      "ATR": "12.74",
+      "AvgVol": "1853700.57",
+      "YestVol": "664219"
+    },
+    "INDIANB": {
+      "ATR": "17.04",
+      "AvgVol": "1621951.79",
+      "YestVol": "1060250"
+    },
+    "INDIGO": {
+      "ATR": "132.96",
+      "AvgVol": "63815.71",
+      "YestVol": "36292"
+    },
+    "INDUSINDBK": {
+      "ATR": "21.36",
+      "AvgVol": "1887927.36",
+      "YestVol": "1400560"
+    },
+    "INDUSTOWER": {
+      "ATR": "11.20",
+      "AvgVol": "5013314.79",
+      "YestVol": "9925209"
+    },
+    "INFY": {
+      "ATR": "32.47",
+      "AvgVol": "995036.57",
+      "YestVol": "157036"
+    },
+    "INOXWIND": {
+      "ATR": "2.52",
+      "AvgVol": "919514.93",
+      "YestVol": "1165312"
+    },
+    "IOC": {
+      "ATR": "2.60",
+      "AvgVol": "8995425.21",
+      "YestVol": "13163732"
+    },
+    "IREDA": {
+      "ATR": "2.39",
+      "AvgVol": "5765480.86",
+      "YestVol": "3648191"
+    },
+    "IRFC": {
+      "ATR": "1.42",
+      "AvgVol": "7963913.93",
+      "YestVol": "4430145"
+    },
+    "ITC": {
+      "ATR": "4.74",
+      "AvgVol": "1084288.29",
+      "YestVol": "1155885"
+    },
+    "JINDALSTEL": {
+      "ATR": "25.80",
+      "AvgVol": "51231.14",
+      "YestVol": "18855"
+    },
+    "JIOFIN": {
+      "ATR": "6.24",
+      "AvgVol": "1547553.14",
+      "YestVol": "398176"
+    },
+    "JSWENERGY": {
+      "ATR": "11.44",
+      "AvgVol": "1680706.00",
+      "YestVol": "2284945"
+    },
+    "JSWSTEEL": {
+      "ATR": "25.77",
+      "AvgVol": "72242.21",
+      "YestVol": "23128"
+    },
+    "JUBLFOOD": {
+      "ATR": "14.19",
+      "AvgVol": "3341909.57",
+      "YestVol": "2648480"
+    },
+    "KALYANKJIL": {
+      "ATR": "26.41",
+      "AvgVol": "23891677.43",
+      "YestVol": "9767762"
+    },
+    "KAYNES": {
+      "ATR": "160.00",
+      "AvgVol": "165647.14",
+      "YestVol": "143625"
+    },
+    "KEI": {
+      "ATR": "145.89",
+      "AvgVol": "588164.93",
+      "YestVol": "415486"
+    },
+    "KFINTECH": {
+      "ATR": "27.44",
+      "AvgVol": "1552996.64",
+      "YestVol": "344812"
+    },
+    "KOTAKBANK": {
+      "ATR": "5.64",
+      "AvgVol": "599366.86",
+      "YestVol": "583165"
+    },
+    "KPITTECH": {
+      "ATR": "24.55",
+      "AvgVol": "6669472.14",
+      "YestVol": "1460797"
+    },
+    "LAURUSLABS": {
+      "ATR": "43.73",
+      "AvgVol": "2568273.64",
+      "YestVol": "1514239"
+    },
+    "LICHSGFIN": {
+      "ATR": "10.74",
+      "AvgVol": "1521483.07",
+      "YestVol": "1493009"
+    },
+    "LICI": {
+      "ATR": "10.16",
+      "AvgVol": "19443052.79",
+      "YestVol": "49779915"
+    },
+    "LODHA": {
+      "ATR": "46.14",
+      "AvgVol": "155821.71",
+      "YestVol": "88524"
+    },
+    "LT": {
+      "ATR": "60.86",
+      "AvgVol": "125031.00",
+      "YestVol": "65993"
+    },
+    "LTF": {
+      "ATR": "8.28",
+      "AvgVol": "260676.00",
+      "YestVol": "159760"
+    },
+    "LTM": {
+      "ATR": "150.76",
+      "AvgVol": "83871.64",
+      "YestVol": "17078"
+    },
+    "LUPIN": {
+      "ATR": "57.40",
+      "AvgVol": "1363723.71",
+      "YestVol": "1304449"
+    },
+    "M&M": {
+      "ATR": "87.71",
+      "AvgVol": "2874526.86",
+      "YestVol": "2269936"
+    },
+    "MANAPPURAM": {
+      "ATR": "11.36",
+      "AvgVol": "280958.29",
+      "YestVol": "181352"
+    },
+    "MANKIND": {
+      "ATR": "62.21",
+      "AvgVol": "50887.00",
+      "YestVol": "6608"
+    },
+    "MARICO": {
+      "ATR": "18.15",
+      "AvgVol": "2061800.21",
+      "YestVol": "977482"
+    },
+    "MARUTI": {
+      "ATR": "261.08",
+      "AvgVol": "45222.79",
+      "YestVol": "25732"
+    },
+    "MAXHEALTH": {
+      "ATR": "25.25",
+      "AvgVol": "1560917.07",
+      "YestVol": "2892166"
+    },
+    "MAZDOCK": {
+      "ATR": "62.07",
+      "AvgVol": "977261.57",
+      "YestVol": "629415"
+    },
+    "MCX": {
+      "ATR": "81.74",
+      "AvgVol": "2116593.79",
+      "YestVol": "4190150"
+    },
+    "MFSL": {
+      "ATR": "35.72",
+      "AvgVol": "755196.79",
+      "YestVol": "1564135"
+    },
+    "MOTHERSON": {
+      "ATR": "5.45",
+      "AvgVol": "26301172.43",
+      "YestVol": "17059449"
+    },
+    "MOTILALOFS": {
+      "ATR": "26.59",
+      "AvgVol": "1796173.14",
+      "YestVol": "846234"
+    },
+    "MPHASIS": {
+      "ATR": "90.15",
+      "AvgVol": "759601.36",
+      "YestVol": "536301"
+    },
+    "MUTHOOTFIN": {
+      "ATR": "95.65",
+      "AvgVol": "1460713.07",
+      "YestVol": "932507"
+    },
+    "NAM-INDIA": {
+      "ATR": "33.30",
+      "AvgVol": "109565.21",
+      "YestVol": "119680"
+    },
+    "NATIONALUM": {
+      "ATR": "9.90",
+      "AvgVol": "380996.86",
+      "YestVol": "501013"
+    },
+    "NAUKRI": {
+      "ATR": "43.85",
+      "AvgVol": "2450513.79",
+      "YestVol": "9948602"
+    },
+    "NBCC": {
+      "ATR": "1.70",
+      "AvgVol": "5458965.14",
+      "YestVol": "5883330"
+    },
+    "NESTLEIND": {
+      "ATR": "39.81",
+      "AvgVol": "2635010.21",
+      "YestVol": "1955836"
+    },
+    "NHPC": {
+      "ATR": "1.70",
+      "AvgVol": "12924848.07",
+      "YestVol": "6122300"
+    },
+    "NMDC": {
+      "ATR": "1.68",
+      "AvgVol": "16695313.21",
+      "YestVol": "14097831"
+    },
+    "NTPC": {
+      "ATR": "5.86",
+      "AvgVol": "9430616.43",
+      "YestVol": "10043994"
+    },
+    "NYKAA": {
+      "ATR": "8.31",
+      "AvgVol": "7486928.36",
+      "YestVol": "7891934"
+    },
+    "OBEROIRLTY": {
+      "ATR": "36.26",
+      "AvgVol": "26844.36",
+      "YestVol": "102033"
+    },
+    "OFSS": {
+      "ATR": "427.00",
+      "AvgVol": "505439.86",
+      "YestVol": "241198"
+    },
+    "OIL": {
+      "ATR": "13.73",
+      "AvgVol": "3807123.71",
+      "YestVol": "11117093"
+    },
+    "ONGC": {
+      "ATR": "4.49",
+      "AvgVol": "12104499.07",
+      "YestVol": "16004168"
+    },
+    "PAGEIND": {
+      "ATR": "781.15",
+      "AvgVol": "2417.36",
+      "YestVol": "731"
+    },
+    "PATANJALI": {
+      "ATR": "9.56",
+      "AvgVol": "500763.50",
+      "YestVol": "232699"
+    },
+    "PAYTM": {
+      "ATR": "53.70",
+      "AvgVol": "5164225.57",
+      "YestVol": "8421264"
+    },
+    "PERSISTENT": {
+      "ATR": "174.49",
+      "AvgVol": "696624.00",
+      "YestVol": "339035"
+    },
+    "PETRONET": {
+      "ATR": "6.11",
+      "AvgVol": "1476531.14",
+      "YestVol": "1059438"
+    },
+    "PFC": {
+      "ATR": "9.73",
+      "AvgVol": "415392.07",
+      "YestVol": "969224"
+    },
+    "PGEL": {
+      "ATR": "21.30",
+      "AvgVol": "2382770.79",
+      "YestVol": "1307957"
+    },
+    "PHOENIXLTD": {
+      "ATR": "49.14",
+      "AvgVol": "649399.07",
+      "YestVol": "261975"
+    },
+    "PIDILITIND": {
+      "ATR": "36.84",
+      "AvgVol": "1361492.07",
+      "YestVol": "1131653"
+    },
+    "PIIND": {
+      "ATR": "56.97",
+      "AvgVol": "174186.93",
+      "YestVol": "221971"
+    },
+    "PNB": {
+      "ATR": "1.67",
+      "AvgVol": "588377.43",
+      "YestVol": "518708"
+    },
+    "PNBHOUSING": {
+      "ATR": "38.22",
+      "AvgVol": "85710.07",
+      "YestVol": "13967"
+    },
+    "POLICYBZR": {
+      "ATR": "49.09",
+      "AvgVol": "1199951.00",
+      "YestVol": "3116309"
+    },
+    "POLYCAB": {
+      "ATR": "187.30",
+      "AvgVol": "13646.50",
+      "YestVol": "19828"
+    },
+    "POWERGRID": {
+      "ATR": "5.23",
+      "AvgVol": "9222465.93",
+      "YestVol": "7553241"
+    },
+    "POWERINDIA": {
+      "ATR": "1238.64",
+      "AvgVol": "12465.36",
+      "YestVol": "24461"
+    },
+    "PREMIERENE": {
+      "ATR": "28.34",
+      "AvgVol": "1037527.36",
+      "YestVol": "470027"
+    },
+    "PRESTIGE": {
+      "ATR": "54.07",
+      "AvgVol": "50491.57",
+      "YestVol": "111465"
+    },
+    "RADICO": {
+      "ATR": "122.89",
+      "AvgVol": "557045.50",
+      "YestVol": "210908"
+    },
+    "RBLBANK": {
+      "ATR": "8.06",
+      "AvgVol": "4426345.14",
+      "YestVol": "1413494"
+    },
+    "RECLTD": {
+      "ATR": "8.60",
+      "AvgVol": "383553.57",
+      "YestVol": "296590"
+    },
+    "RELIANCE": {
+      "ATR": "21.36",
+      "AvgVol": "11470094.50",
+      "YestVol": "9953124"
+    },
+    "RVNL": {
+      "ATR": "5.28",
+      "AvgVol": "4971347.71",
+      "YestVol": "6399915"
+    },
+    "SAIL": {
+      "ATR": "5.86",
+      "AvgVol": "18224556.71",
+      "YestVol": "13260979"
+    },
+    "SBICARD": {
+      "ATR": "13.83",
+      "AvgVol": "1108304.14",
+      "YestVol": "659365"
+    },
+    "SBILIFE": {
+      "ATR": "37.18",
+      "AvgVol": "93676.64",
+      "YestVol": "47950"
+    },
+    "SBIN": {
+      "ATR": "21.39",
+      "AvgVol": "896259.14",
+      "YestVol": "689851"
+    },
+    "SHREECEM": {
+      "ATR": "623.57",
+      "AvgVol": "24466.29",
+      "YestVol": "15647"
+    },
+    "SHRIRAMFIN": {
+      "ATR": "33.06",
+      "AvgVol": "305636.86",
+      "YestVol": "53422"
+    },
+    "SIEMENS": {
+      "ATR": "112.64",
+      "AvgVol": "442506.21",
+      "YestVol": "1266007"
+    },
+    "SOLARINDS": {
+      "ATR": "444.43",
+      "AvgVol": "69104.64",
+      "YestVol": "81535"
+    },
+    "SONACOMS": {
+      "ATR": "25.96",
+      "AvgVol": "231261.79",
+      "YestVol": "79884"
+    },
+    "SRF": {
+      "ATR": "61.54",
+      "AvgVol": "64407.71",
+      "YestVol": "23516"
+    },
+    "SUNPHARMA": {
+      "ATR": "34.93",
+      "AvgVol": "2800877.07",
+      "YestVol": "2125972"
+    },
+    "SUPREMEIND": {
+      "ATR": "96.40",
+      "AvgVol": "18787.14",
+      "YestVol": "5702"
+    },
+    "SUZLON": {
+      "ATR": "1.49",
+      "AvgVol": "78005829.29",
+      "YestVol": "37012060"
+    },
+    "SWIGGY": {
+      "ATR": "13.34",
+      "AvgVol": "29141417.64",
+      "YestVol": "12129143"
+    },
+    "TATACONSUM": {
+      "ATR": "25.13",
+      "AvgVol": "83956.29",
+      "YestVol": "130893"
+    },
+    "TATAELXSI": {
+      "ATR": "91.70",
+      "AvgVol": "423122.86",
+      "YestVol": "145353"
+    },
+    "TATAPOWER": {
+      "ATR": "5.89",
+      "AvgVol": "3161979.57",
+      "YestVol": "2965048"
+    },
+    "TATASTEEL": {
+      "ATR": "3.95",
+      "AvgVol": "1157371.57",
+      "YestVol": "1190349"
+    },
+    "TCS": {
+      "ATR": "69.54",
+      "AvgVol": "212773.64",
+      "YestVol": "117915"
+    },
+    "TECHM": {
+      "ATR": "39.11",
+      "AvgVol": "298741.64",
+      "YestVol": "140124"
+    },
+    "TIINDIA": {
+      "ATR": "85.25",
+      "AvgVol": "327092.93",
+      "YestVol": "152287"
+    },
+    "TITAN": {
+      "ATR": "87.77",
+      "AvgVol": "74381.86",
+      "YestVol": "59436"
+    },
+    "TMPV": {
+      "ATR": "6.38",
+      "AvgVol": "6724539.71",
+      "YestVol": "4864857"
+    },
+    "TORNTPHARM": {
+      "ATR": "125.61",
+      "AvgVol": "67633.79",
+      "YestVol": "71841"
+    },
+    "TRENT": {
+      "ATR": "75.45",
+      "AvgVol": "80196.43",
+      "YestVol": "54510"
+    },
+    "TVSMOTOR": {
+      "ATR": "99.67",
+      "AvgVol": "141768.21",
+      "YestVol": "80066"
+    },
+    "ULTRACEMCO": {
+      "ATR": "211.00",
+      "AvgVol": "247886.64",
+      "YestVol": "184916"
+    },
+    "UNIONBANK": {
+      "ATR": "4.40",
+      "AvgVol": "11810684.79",
+      "YestVol": "14742300"
+    },
+    "UNITDSPR": {
+      "ATR": "31.86",
+      "AvgVol": "1061529.93",
+      "YestVol": "546668"
+    },
+    "UNOMINDA": {
+      "ATR": "30.41",
+      "AvgVol": "54955.86",
+      "YestVol": "37872"
+    },
+    "UPL": {
+      "ATR": "12.86",
+      "AvgVol": "1983191.64",
+      "YestVol": "981675"
+    },
+    "VBL": {
+      "ATR": "12.79",
+      "AvgVol": "8167623.21",
+      "YestVol": "5820816"
+    },
+    "VEDL": {
+      "ATR": "7.05",
+      "AvgVol": "11841545.86",
+      "YestVol": "13475283"
+    },
+    "VMM": {
+      "ATR": "2.83",
+      "AvgVol": "10575782.00",
+      "YestVol": "7578617"
+    },
+    "VOLTAS": {
+      "ATR": "32.41",
+      "AvgVol": "498415.93",
+      "YestVol": "529635"
+    },
+    "WAAREEENER": {
+      "ATR": "63.89",
+      "AvgVol": "983045.57",
+      "YestVol": "336490"
+    },
+    "WIPRO": {
+      "ATR": "4.04",
+      "AvgVol": "779014.00",
+      "YestVol": "523861"
+    },
+    "YESBANK": {
+      "ATR": "0.30",
+      "AvgVol": "3160695.21",
+      "YestVol": "1918694"
+    },
+    "ZYDUSLIFE": {
+      "ATR": "28.56",
+      "AvgVol": "99061.29",
+      "YestVol": "714544"
+    }
+  }
+}

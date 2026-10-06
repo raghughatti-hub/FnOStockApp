@@ -1,0 +1,10 @@
+User_code	:	2DCYAV
+Static IP	:	49.204.168.42
+API Key		: 	445bbbd2-d56b-48c3-bbec-120bf6a1d8e1
+API Secret	:	yzqz28t8xq
+TOTP		:	3M6HOZO4U2TWVTLC6NHNS5CKTG3YSUZM
+Redirect URL	:	http://localhost:8095/upstox/callback
+Pin		:	258247
+Mobile 		: 	8555947993
+Access_Token	:	eyJ0eXAiOiJKV1QiLCJrZXlfaWQiOiJza192MS4wIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiIyRENZQVYiLCJqdGkiOiI2YTdhODdjMjdhY2IyNTE5MDQzNTZjZGUiLCJpc011bHRpQ2xpZW50IjpmYWxzZSwiaXNQbHVzUGxhbiI6ZmFsc2UsImlhdCI6MTc4NjQxNTA0MiwiaXNzIjoidWRhcGktZ2F0ZXdheS1zZXJ2aWNlIiwiZXhwIjoxNzg2NDg1NjAwfQ.8v7iMm0-hZ5JBbFP_tWsDfQ95t8E9Q1KXhhLrXwC6SU
+Token_Date	:	2026-08-11

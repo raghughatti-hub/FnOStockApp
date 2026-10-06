@@ -1,0 +1,25 @@
+# Core dependencies
+pandas>=1.3.0
+numpy>=1.21.0
+requests>=2.25.0
+pyotp>=2.8.0
+xlwings>=0.28.0
+pyttsx3>=2.90
+websocket-client>=1.2.0
+psutil>=5.8.0
+
+# Trading API
+NorenRestApiPy>=1.0.0
+
+# Optional/Additional dependencies (uncomment if needed)
+# openpyxl>=3.0.0  # For Excel file operations
+# python-dateutil>=2.8.0  # For date/time handling
+# pytz>=2021.0  # For timezone support
+# pandas-ta>=0.3.0  # For technical analysis (if using option chain features)
+# matplotlib>=3.3.0  # For data visualization (if needed)
+# seaborn>=0.11.0  # For enhanced visualization (if needed)
+
+
+#pip install -r requirements.txt
+
+#pip install git+https://github.com/kirajcg/ShoonyaApi.git

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            fetch('/api/log_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: String(message),
+                    source: String(source),
+                    lineno: lineno,
+                    colno: colno,
+                    error: error ? String(error.stack) : ''
+                })
+            }).catch(e => {});
+        };
+        const origError = console.error;
+        console.error = function(...args) {
+            origError.apply(console, args);
+            fetch('/api/log_error', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: args.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(' '),
+                    source: 'console.error'
+                })
+            }).catch(e => {});
+        };
+    </script>
+    <title>FnO Stock Trading Application</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Force the browser to grab new, uncached versions of CSS and JS on every reload
+        document.write('<link rel="stylesheet" href="style.css?v=' + new Date().getTime() + '">');
+    </script>
+    <!-- React & ReactDOM Global UMD CDN builds -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Babel Standalone to compile react_app.js in the browser -->
+    <script src="https://unpkg.com/@babel/standalone@7.24.0/babel.min.js"></script>
+    <!-- Pre-define window.app so any immediate inline click handlers work safely -->
+    <script>
+        window.app = window.app || {
+            launchBroker: function(name) {
+                if (window._realApp && window._realApp.launchBroker) {
+                    window._realApp.launchBroker(name);
+                } else {
+                    window._pendingBrokerLaunch = name;
+                }
+            }
+        };
+        function launchBroker(name) {
+            if (window.app && window.app.launchBroker) {
+                window.app.launchBroker(name);
+            }
+        }
+        document.write('<script src="app.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+<body>
+    <!-- INITIAL HOME LANDING PAGE (BROKER LAUNCHPAD) -->
+    <div id="landing-home-page" style="position: fixed; inset: 0; background: linear-gradient(135deg, #090d16 0%, #0f172a 100%); z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; overflow-y: auto;">
+        <div style="max-width: 900px; width: 100%; text-align: center;">
+            <div style="display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 20px; color: #38bdf8; font-size: 0.85rem; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px;">
+                ⚡ FNO STOCK TRADING APPLICATION • UNIVERSAL BROKER LAUNCHPAD
+            </div>
+            
+            <h1 style="font-size: 2.5rem; font-weight: 900; color: #f8fafc; margin-bottom: 12px; letter-spacing: -0.5px;">
+                Select Your Broker to Connect & Launch
+            </h1>
+            <p style="font-size: 1.05rem; color: #94a3b8; margin-bottom: 44px; max-width: 640px; margin-left: auto; margin-right: auto;">
+                High-performance real-time trading dashboard. Choose your preferred broker connection below or enter paper trading mode.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; text-align: left;">
+                
+                <!-- Flattrade Card -->
+                <div onclick="launchBroker('FLATTRADE')" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(12px);" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(56,189,248,0.15)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform=''; this.style.boxShadow=''">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 2.2rem;">⚡</span>
+                        <span style="padding: 4px 10px; background: rgba(56,189,248,0.15); color: #38bdf8; border-radius: 6px; font-size: 0.72rem; font-weight: 800;">ACTIVE READY</span>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">Flattrade Broker</h3>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 22px; line-height: 1.5;">Zero brokerage trading engine powered by Flattrade REST & PiConnect WebSockets.</p>
+                    <button style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, #0284c7, #38bdf8); color: #000; font-size: 0.9rem; font-weight: 800; cursor: pointer;">Connect & Launch →</button>
+                </div>
+
+                <!-- Upstox Card -->
+                <div onclick="launchBroker('UPSTOX')" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(12px);" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(168,85,247,0.15)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform=''; this.style.boxShadow=''">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 2.2rem;">🚀</span>
+                        <span style="padding: 4px 10px; background: rgba(168,85,247,0.15); color: #c084fc; border-radius: 6px; font-size: 0.72rem; font-weight: 800;">v2 API READY</span>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">Upstox Broker API</h3>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 22px; line-height: 1.5;">Next-gen OAuth 2.0 streaming feed with Protobuf market tick decoding.</p>
+                    <button style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, #9333ea, #c084fc); color: #fff; font-size: 0.9rem; font-weight: 800; cursor: pointer;">Connect & Launch →</button>
+                </div>
+
+                <!-- Paper Trading Card -->
+                <div onclick="launchBroker('PAPER')" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(12px);" onmouseover="this.style.borderColor='#22c55e'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(34,197,94,0.15)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform=''; this.style.boxShadow=''">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 2.2rem;">📝</span>
+                        <span style="padding: 4px 10px; background: rgba(34,197,94,0.15); color: #4ade80; border-radius: 6px; font-size: 0.72rem; font-weight: 800;">SANDBOX</span>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">Paper Trade Mode</h3>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 22px; line-height: 1.5;">Simulated order execution sandbox. Test strategies with zero risk.</p>
+                    <button style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, #16a34a, #4ade80); color: #000; font-size: 0.9rem; font-weight: 800; cursor: pointer;">Launch Sandbox →</button>
+                </div>
+
+                <!-- Zebu Card -->
+                <div onclick="launchBroker('ZEBU')" style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(12px);" onmouseover="this.style.borderColor='#f59e0b'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 16px 40px rgba(245,158,11,0.15)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform=''; this.style.boxShadow=''">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 2.2rem;">🐂</span>
+                        <span style="padding: 4px 10px; background: rgba(245,158,11,0.15); color: #f59e0b; border-radius: 6px; font-size: 0.72rem; font-weight: 800;">MYNT API READY</span>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: #f8fafc; margin-bottom: 6px;">Zebu Broker</h3>
+                    <p style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 22px; line-height: 1.5;">High-performance trading engine powered by Zebu Mynt Rest & WebSocket APIs.</p>
+                    <button style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, #d97706, #f59e0b); color: #000; font-size: 0.9rem; font-weight: 800; cursor: pointer;">Connect & Launch →</button>
+                </div>
+
+                <!-- Universal Plugin Card (Future Brokers) -->
+                <div style="background: rgba(15, 23, 42, 0.35); border: 1px dashed rgba(255,255,255,0.15); border-radius: 16px; padding: 28px; opacity: 0.7;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <span style="font-size: 2.2rem;">🔌</span>
+                        <span style="padding: 4px 10px; background: rgba(255,255,255,0.06); color: #94a3b8; border-radius: 6px; font-size: 0.72rem; font-weight: 800;">UNIVERSAL FRAMEWORK</span>
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; color: #94a3b8; margin-bottom: 6px;">+ Add Broker Plugin</h3>
+                    <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 22px; line-height: 1.5;">Zerodha, Dhan, AngelOne & custom brokers ready via BaseBroker plugin interface.</p>
+                    <button disabled style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: rgba(255,255,255,0.05); color: #64748b; font-size: 0.9rem; font-weight: 800; cursor: not-allowed;">Plugin Architecture Ready</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <header style="padding: 6px 14px; background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; overflow-x: auto;">
+        <h1 class="logo" style="margin: 0; font-size: 1.1rem; font-weight: 900; white-space: nowrap; flex-shrink: 0;"><span>⚡</span> FnO Stock Trading Application</h1>
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; flex-shrink: 0;">
+            
+            <!-- Broker Status Badge -->
+            <div id="broker-status-badge" style="padding: 3px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;">
+                <span id="broker-badge-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #38bdf8; display: inline-block;"></span>
+                <span id="broker-badge-text">FLATTRADE: RUNNING</span>
+            </div>
+
+            <!-- Expiry Select -->
+            <select id="global-expiry-select" onchange="app.changeGlobalExpiry(this.value)" style="width: auto; padding: 3px 6px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-lighter); color: var(--text-primary); font-size: 11px; font-weight: bold; cursor: pointer; outline: none; white-space: nowrap;">
+                <option value="" disabled selected>Expiry</option>
+                <option value="Near">Near OI</option>
+                <option value="Next">Next OI</option>
+                <option value="Far">Far OI</option>
+            </select>
+
+            <!-- Broker Select -->
+            <select id="global-broker-select" onchange="app.changeBroker(this.value)" style="width: auto; padding: 3px 6px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-lighter); color: #38bdf8; font-size: 11px; font-weight: bold; cursor: pointer; outline: none; white-space: nowrap;">
+                <option value="FLATTRADE">⚡ Flattrade</option>
+                <option value="UPSTOX">🚀 Upstox</option>
+                <option value="ZEBU">🐂 Zebu</option>
+            </select>
+
+            <!-- Home Button -->
+            <button onclick="app.showLandingHome()" style="padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-lighter); color: var(--text-primary); font-size: 11px; font-weight: bold; cursor: pointer; outline: none; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap;">
+                🏠 Home
+            </button>
+
+            <!-- Sync & Refresh Data Button -->
+            <button id="btn-sync-refresh" onclick="app.syncAndRefreshData()" title="Re-sync master metrics & broker quote subscriptions without logging out or reloading page" style="padding: 3px 10px; border-radius: 4px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.12); color: #38bdf8; font-size: 11px; font-weight: bold; cursor: pointer; outline: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; transition: all 0.2s ease;">
+                <span id="sync-refresh-icon">🔄</span> Sync &amp; Refresh
+            </button>
+
+            <!-- Trade Mode Toggle (Paper / Real Mode) -->
+            <div class="trade-mode-toggle" style="display: inline-flex; border: 1px solid var(--border-color); border-radius: 4px; overflow: hidden; white-space: nowrap; flex-shrink: 0;">
+                <button id="btn-paper-mode" onclick="app.setTradeMode('PAPER')" style="padding: 4px 10px; border: none; background: var(--profit); color: #fff; cursor: pointer; font-size: 11px; border-right: 1px solid var(--border-color); font-weight: bold; white-space: nowrap;">Paper Mode</button>
+                <button id="btn-real-mode" onclick="app.setTradeMode('REAL')" style="padding: 4px 10px; border: none; background: var(--bg-lighter); color: var(--text-primary); cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap;">Real Mode</button>
+            </div>
+
+            <!-- Socket Status -->
+            <div class="status-indicator" style="display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; flex-shrink: 0;">
+                <div class="dot" id="socket-status"></div>
+                <span id="socket-text" style="font-size: 11px;">Disconnected</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- INDEX TICKER (STATIC BOXES) -->
+    <div class="index-ticker-container" style="display: flex; gap: 10px; padding: 8px 20px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--border-color); overflow-x: auto; align-items: center; white-space: nowrap;">
+        <!-- NIFTY -->
+        <div class="index-card" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.25); font-size: 0.85rem; font-weight: 500;">
+            <span style="color: var(--text-secondary); font-weight: 600;">NIFTY</span>
+            <span class="ticker-val" id="ticker-lp-NSE_26000" style="color: var(--text-primary); font-weight: 700;">--</span>
+            <span id="ticker-change-NSE_26000" style="font-weight: 600;">--</span>
+            <span id="ticker-pc-NSE_26000" style="font-weight: 600;">(--%)</span>
+        </div>
+        <!-- BANKNIFTY -->
+        <div class="index-card" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.25); font-size: 0.85rem; font-weight: 500;">
+            <span style="color: var(--text-secondary); font-weight: 600;">BANKNIFTY</span>
+            <span class="ticker-val" id="ticker-lp-NSE_26009" style="color: var(--text-primary); font-weight: 700;">--</span>
+            <span id="ticker-change-NSE_26009" style="font-weight: 600;">--</span>
+            <span id="ticker-pc-NSE_26009" style="font-weight: 600;">(--%)</span>
+        </div>
+        <!-- SENSEX -->
+        <div class="index-card" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.25); font-size: 0.85rem; font-weight: 500;">
+            <span style="color: var(--text-secondary); font-weight: 600;">SENSEX</span>
+            <span class="ticker-val" id="ticker-lp-BSE_1" style="color: var(--text-primary); font-weight: 700;">--</span>
+            <span id="ticker-change-BSE_1" style="font-weight: 600;">--</span>
+            <span id="ticker-pc-BSE_1" style="font-weight: 600;">(--%)</span>
+        </div>
+        <!-- BANKEX -->
+        <div class="index-card" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.25); font-size: 0.85rem; font-weight: 500;">
+            <span style="color: var(--text-secondary); font-weight: 600;">BANKEX</span>
+            <span class="ticker-val" id="ticker-lp-BSE_12" style="color: var(--text-primary); font-weight: 700;">--</span>
+            <span id="ticker-change-BSE_12" style="font-weight: 600;">--</span>
+            <span id="ticker-pc-BSE_12" style="font-weight: 600;">(--%)</span>
+        </div>
+        <!-- INDIA VIX -->
+        <div class="index-card" style="display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 6px; background: rgba(0,0,0,0.25); font-size: 0.85rem; font-weight: 500;">
+            <span style="color: var(--text-secondary); font-weight: 600;">INDIA VIX</span>
+            <span class="ticker-val" id="ticker-lp-NSE_26017" style="color: var(--text-primary); font-weight: 700;">--</span>
+            <span id="ticker-change-NSE_26017" style="font-weight: 600;">--</span>
+            <span id="ticker-pc-NSE_26017" style="font-weight: 600;">(--%)</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar Configuration -->
+        <aside class="sidebar">
+            <!-- Login Panel -->
+            <div class="panel" id="login-panel">
+                <h3 style="margin-bottom: 15px;">API Credentials</h3>
+                <div class="form-group">
+                    <label>User ID</label>
+                    <input type="text" id="userid" placeholder="Enter Shoonya User ID">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label>TOTP Secret / PIN</label>
+                    <input type="password" id="totp" placeholder="TOTP Secret">
+                </div>
+                <div class="form-group">
+                    <label>Vendor Code</label>
+                    <input type="text" id="vendor" placeholder="Vendor Code">
+                </div>
+                <div class="form-group">
+                    <label>API Secret</label>
+                    <input type="password" id="secret" placeholder="API Secret">
+                </div>
+                <button class="primary" onclick="app.login()">Connect to Shoonya</button>
+            </div>
+
+            <!-- Action Panel Removed -->
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <div class="panel" style="flex: 1; display:flex; flex-direction:column; padding: 0; overflow:hidden;">
+                <!-- Tabs + Rank Controls Row (always visible) -->
+                <div style="padding: 20px 20px 0 20px; display:flex; align-items:center; justify-content:space-between;">
+                    <div class="tabs">
+                        <div class="tab active" onclick="app.switchTab('live-data')">FnO Stocks</div>
+                        <div class="tab" onclick="app.switchTab('futures')">Stock Futures</div>
+                        <div class="tab" onclick="app.switchTab('positions')">Open Positions</div>
+                        <div class="tab" onclick="app.switchTab('orders')">Order Book</div>
+                        <div class="tab trade-ready-tab" onclick="app.switchTab('trade-ready')" id="tab-btn-trade-ready" style="border-left:2px solid var(--accent); color:var(--accent);">&#9889; Trade Ready</div>
+                        <div class="tab" onclick="app.switchTab('trade-now')" id="tab-btn-trade-now" style="border-left:2px solid var(--profit); color:var(--profit); font-weight:700;">&#9654; Trade Entry</div>
+                        <div class="tab" onclick="app.switchTab('trade-exit')" id="tab-btn-trade-exit" style="border-left:2px solid var(--loss); color:var(--loss); font-weight:700;">&#9632; Trade Exit</div>
+                        <div class="tab" onclick="app.switchTab('trade-terminal')" id="tab-btn-trade-terminal" style="border-left:2px solid #a855f7; color:#a855f7; font-weight:700;">🖥️ Trade Terminal</div>
+                    </div>
+                    <!-- Rank Sort Controls in tab bar row -->
+                    <div id="fno-rank-controls" style="display:flex; align-items:center; gap:6px; padding-right:4px;">
+                        <span style="font-weight:600; font-size:0.78rem; color:var(--accent); white-space:nowrap;">Rank:</span>
+                        <select id="rank-col-select" style="padding:3px 5px; font-size:0.78rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); width:110px;">
+                            <option value="" disabled selected>Select</option>
+                            <option value="rank_vol">Avg Vol Rank</option>
+                            <option value="rank_chg">Change Rank</option>
+                            <option value="rank_abs_chg">ABS Chg Rank</option>
+                            <option value="rank_oi">OI Rank</option>
+                        </select>
+                        <button id="sort-dir-btn" onclick="app.toggleSortDirection()" style="padding:3px 10px; font-size:0.78rem; font-weight:bold; background:var(--accent); color:#000; border:none; border-radius:4px; cursor:pointer; min-width:32px;">A</button>
+                        <button onclick="app.moveToTradeReady()" style="padding:3px 10px; font-size:0.78rem; font-weight:bold; background:linear-gradient(135deg,#f59e0b,#d97706); border:none; border-radius:4px; cursor:pointer; color:#000;">&#9889; Move</button>
+                    </div>
+                </div>
+
+                <!-- React Advanced Filters Control Panel Root -->
+                <div id="react-control-panel-root"></div>
+
+                <!-- Live Data Grid — FnO Stocks -->
+                <div class="data-table-container" id="tab-live-data" style="margin: 0 20px 20px 20px; flex:1;">
+                    <div id="react-streaming-grid-root"></div>
+                </div>
+
+                <!-- Trade Ready Grid -->
+                <div class="data-table-container" id="tab-trade-ready" style="margin: 0 20px 20px 20px; flex:1; display:none;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding: 10px 5px 6px 5px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span style="font-size:1.1rem; font-weight:700; color:var(--accent);">⚡ Trade Ready Scrips</span>
+                            <span id="trade-ready-count" style="padding:3px 10px; background:var(--accent); color:#000; border-radius:12px; font-size:0.8rem; font-weight:bold;">0 scrips</span>
+                            <span id="trade-ready-sort-label" style="font-size:0.8rem; color:var(--text-secondary);"></span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <input type="number" id="tr-send-count" value="6" min="1" max="50" style="width:40px; padding:4px; font-size:0.82rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); text-align:center;" title="Number of scrips to send">
+                            <select id="tr-send-method" style="padding:5px; font-size:0.82rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color);">
+                                <option value="" disabled selected>Select</option>
+                                <option value="top_change">Change% (High to Low)</option>
+                                <option value="top_abs_change">ABS Change% (High to Low)</option>
+                                <option value="top_oi">OI Change% (High to Low)</option>
+                                <option value="top_vol">Volume Change% (High to Low)</option>
+                                <option value="checked">Checked in Table</option>
+                                <option value="top_visible">Current View (Top N)</option>
+                            </select>
+                            <button onclick="app.sendToTradeNow()" style="padding:5px 16px; font-size:0.82rem; font-weight:700; background:linear-gradient(135deg,var(--profit),#16a34a); color:#fff; border:none; border-radius:5px; cursor:pointer; box-shadow:0 2px 8px rgba(63,185,80,0.4);">&#9654; Trade Now →</button>
+                            <button onclick="app.clearTradeReady()" style="padding:5px 14px; font-size:0.82rem; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">🗑 Clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Trade Ready Filter Bar (independent state from FnO filter bar) -->
+                    <div id="trade-ready-filters"
+                         style="margin: 0 0 8px 0; padding: 6px 12px;
+                                background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.3);
+                                border-radius: 8px; display: none; flex-wrap: nowrap;
+                                gap: 6px; align-items: center; overflow-x: auto;">
+                        <span style="font-weight:600; font-size:0.8rem; color:var(--accent); white-space:nowrap;">TR Filters:</span>
+                        <div style="display:flex; gap:4px; align-items:center; flex-shrink:0;">
+                            <select id="tr-f1-field" style="width:90px; padding:3px; font-size:0.78rem;">
+                                <option value="" disabled selected>Select</option>
+                                <option value="symbol">Name</option><option value="ltp">Spot LTP</option><option value="change">Spot Chg</option><option value="pc">Spot Chg%</option><option value="chg_vol_pc">Vol Chg%</option><option value="fut_ltp">Fut Price</option><option value="lotsize">Lot Size</option><option value="strike_diff">Strike Diff</option><option value="fut_pc">Fut Chg%</option><option value="oi_chg_pc">OI Chg%</option><option value="rank_chg">Price Rank</option><option value="rank_vol">Vol Rank</option><option value="rank_oi">OI Rank</option><option value="rank_abs_chg">Abs Rank</option><option value="atm_strike">ATM Strike</option>
+                            </select>
+                            <select id="tr-f1-op" style="width:55px; padding:3px; font-size:0.78rem;" onchange="app.handleTrOpChange(this)">
+                                <option value="" disabled selected>Select</option>
+                                <option value=">">&gt;</option><option value="<">&lt;</option><option value="=">=</option>
+                                <option value="between">Betw</option><option value="!=0">!= 0</option><option value="isNum">isNum</option><option value="!=null">!=Null</option><option value="contains">In</option>
+                            </select>
+                            <input type="text" id="tr-f1-val" placeholder="Value" style="width:55px; padding:3px; font-size:0.78rem;">
+                            <input type="text" id="tr-f1-val2" placeholder="To" style="width:55px; padding:3px; font-size:0.78rem; display:none;">
+                        </div>
+                        <div style="display:flex; gap:4px; align-items:center; flex-shrink:0;">
+                            <select id="tr-f2-logic" style="width:46px; padding:3px; font-size:0.78rem;"><option value="" disabled selected>Select</option><option value="AND">AND</option><option value="OR">OR</option></select>
+                            <select id="tr-f2-field" style="width:90px; padding:3px; font-size:0.78rem;">
+                                <option value="" disabled selected>Select</option>
+                                <option value="symbol">Name</option><option value="ltp">Spot LTP</option><option value="change">Spot Chg</option><option value="pc">Spot Chg%</option><option value="chg_vol_pc">Vol Chg%</option><option value="fut_ltp">Fut Price</option><option value="lotsize">Lot Size</option><option value="strike_diff">Strike Diff</option><option value="fut_pc">Fut Chg%</option><option value="oi_chg_pc">OI Chg%</option><option value="rank_chg">Price Rank</option><option value="rank_vol">Vol Rank</option><option value="rank_oi">OI Rank</option><option value="rank_abs_chg">Abs Rank</option><option value="atm_strike">ATM Strike</option>
+                            </select>
+                            <select id="tr-f2-op" style="width:55px; padding:3px; font-size:0.78rem;" onchange="app.handleTrOpChange(this)">
+                                <option value="" disabled selected>Select</option>
+                                <option value=">">&gt;</option><option value="<">&lt;</option><option value="=">=</option>
+                                <option value="between">Betw</option><option value="!=0">!= 0</option><option value="isNum">isNum</option><option value="!=null">!=Null</option><option value="contains">In</option>
+                            </select>
+                            <input type="text" id="tr-f2-val" placeholder="Value" style="width:55px; padding:3px; font-size:0.78rem;">
+                            <input type="text" id="tr-f2-val2" placeholder="To" style="width:55px; padding:3px; font-size:0.78rem; display:none;">
+                        </div>
+                        <div style="display:flex; gap:4px; align-items:center; flex-shrink:0;">
+                            <select id="tr-f3-logic" style="width:46px; padding:3px; font-size:0.78rem;"><option value="" disabled selected>Select</option><option value="AND">AND</option><option value="OR">OR</option></select>
+                            <select id="tr-f3-field" style="width:90px; padding:3px; font-size:0.78rem;">
+                                <option value="" disabled selected>Select</option>
+                                <option value="symbol">Name</option><option value="ltp">Spot LTP</option><option value="change">Spot Chg</option><option value="pc">Spot Chg%</option><option value="chg_vol_pc">Vol Chg%</option><option value="fut_ltp">Fut Price</option><option value="lotsize">Lot Size</option><option value="strike_diff">Strike Diff</option><option value="fut_pc">Fut Chg%</option><option value="oi_chg_pc">OI Chg%</option><option value="rank_chg">Price Rank</option><option value="rank_vol">Vol Rank</option><option value="rank_oi">OI Rank</option><option value="rank_abs_chg">Abs Rank</option><option value="atm_strike">ATM Strike</option>
+                            </select>
+                            <select id="tr-f3-op" style="width:55px; padding:3px; font-size:0.78rem;" onchange="app.handleTrOpChange(this)">
+                                <option value="" disabled selected>Select</option>
+                                <option value=">">&gt;</option><option value="<">&lt;</option><option value="=">=</option>
+                                <option value="between">Betw</option><option value="!=0">!= 0</option><option value="isNum">isNum</option><option value="!=null">!=Null</option><option value="contains">In</option>
+                            </select>
+                            <input type="text" id="tr-f3-val" placeholder="Value" style="width:55px; padding:3px; font-size:0.78rem;">
+                            <input type="text" id="tr-f3-val2" placeholder="To" style="width:55px; padding:3px; font-size:0.78rem; display:none;">
+                        </div>
+                        <div style="display:flex; gap:4px; align-items:center; flex-shrink:0;">
+                            <select id="tr-f4-logic" style="width:46px; padding:3px; font-size:0.78rem;"><option value="" disabled selected>Select</option><option value="AND">AND</option><option value="OR">OR</option></select>
+                            <select id="tr-f4-field" style="width:90px; padding:3px; font-size:0.78rem;">
+                                <option value="" disabled selected>Select</option>
+                                <option value="symbol">Name</option><option value="ltp">Spot LTP</option><option value="change">Spot Chg</option><option value="pc">Spot Chg%</option><option value="chg_vol_pc">Vol Chg%</option><option value="fut_ltp">Fut Price</option><option value="lotsize">Lot Size</option><option value="strike_diff">Strike Diff</option><option value="fut_pc">Fut Chg%</option><option value="oi_chg_pc">OI Chg%</option><option value="rank_chg">Price Rank</option><option value="rank_vol">Vol Rank</option><option value="rank_oi">OI Rank</option><option value="rank_abs_chg">Abs Rank</option><option value="atm_strike">ATM Strike</option>
+                            </select>
+                            <select id="tr-f4-op" style="width:55px; padding:3px; font-size:0.78rem;" onchange="app.handleTrOpChange(this)">
+                                <option value="" disabled selected>Select</option>
+                                <option value=">">&gt;</option><option value="<">&lt;</option><option value="=">=</option>
+                                <option value="between">Betw</option><option value="!=0">!= 0</option><option value="isNum">isNum</option><option value="!=null">!=Null</option><option value="contains">In</option>
+                            </select>
+                            <input type="text" id="tr-f4-val" placeholder="Value" style="width:55px; padding:3px; font-size:0.78rem;">
+                            <input type="text" id="tr-f4-val2" placeholder="To" style="width:55px; padding:3px; font-size:0.78rem; display:none;">
+                        </div>
+                        <div style="display:flex; gap:5px; margin-left:auto; align-items:center; flex-shrink:0;">
+                            <button class="primary" style="padding:3px 10px; font-size:0.78rem;" onclick="app.applyTradeReadyFilters()">Apply</button>
+                            <button style="padding:3px 10px; font-size:0.78rem;" onclick="app.clearTradeReadyFilters()">Clear</button>
+                        </div>
+                    </div>
+
+                    <table class="flex-grid fno-header" id="trade-ready-table">
+                        <thead class="fno-header">
+                            <tr>
+                                <th colspan="2" style="text-align:center;">Scrip</th>
+                                <th colspan="4" style="background:rgba(59,130,246,0.25); color:#93c5fd; text-align:center;">━━ Spot ━━</th>
+                                <th colspan="5" style="background:rgba(251,191,36,0.25); color:#000; text-align:center;" id="tr-fut-expiry-header">━━ Futures (Near Expiry) ━━</th>
+                                <th colspan="5" style="background:rgba(139,92,246,0.25); color:#a78bfa; text-align:center;">━━ Ranks ━━</th>
+                                <th colspan="1" style="background:rgba(16,185,129,0.25); color:var(--profit); text-align:center;">Options</th>
+                                <th colspan="2" style="text-align:center;">Trade</th>
+                            </tr>
+                            <tr style="cursor:pointer;">
+                                <th>S.No</th>
+                                <th style="text-align:left;">Spot Name</th>
+                                <th onclick="app.sortTradeReady('ltp')" style="background:rgba(59,130,246,0.12);">Spot LTP ↕</th>
+                                <th onclick="app.sortTradeReady('change')" style="background:rgba(59,130,246,0.12);">Change ↕</th>
+                                <th onclick="app.sortTradeReady('pc')" style="background:rgba(59,130,246,0.12);">Chg% ↕</th>
+                                <th onclick="app.sortTradeReady('chg_vol_pc')" style="background:rgba(59,130,246,0.12);">Vol Chg% ↕</th>
+                                <th onclick="app.sortTradeReady('fut_ltp')" style="background:rgba(251,191,36,0.12); color:var(--accent);">Future Price ↕</th>
+                                <th onclick="app.sortTradeReady('lotsize')" style="background:rgba(251,191,36,0.12); color:var(--accent);">Lot Size ↕</th>
+                                <th onclick="app.sortTradeReady('strike_diff')" style="background:rgba(251,191,36,0.12); color:var(--accent);">Strike Diff ↕</th>
+                                <th onclick="app.sortTradeReady('fut_change')" style="background:rgba(251,191,36,0.12); color:var(--accent);">Fut Change ↕</th>
+                                <th onclick="app.sortTradeReady('fut_pc')" style="background:rgba(251,191,36,0.12); color:var(--accent);">Fut Chg% ↕</th>
+                                <th onclick="app.sortTradeReady('oi_chg_pc')">OI Change% ↕</th>
+                                <th onclick="app.sortTradeReady('rank_chg')" style="background:rgba(139,92,246,0.1); color:#a78bfa;">Price Chg Rank ↕</th>
+                                <th onclick="app.sortTradeReady('rank_vol')" style="background:rgba(139,92,246,0.1); color:#a78bfa;">Vol Rank ↕</th>
+                                <th onclick="app.sortTradeReady('rank_oi')" style="background:rgba(139,92,246,0.1); color:#a78bfa;">OI Chg Rank ↕</th>
+                                <th onclick="app.sortTradeReady('rank_abs_chg')" style="background:rgba(139,92,246,0.1); color:#a78bfa;">Abs Chg Rank ↕</th>
+                                <th onclick="app.sortTradeReady('atm_strike')" style="background:rgba(16,185,129,0.12); color:var(--profit);">ATM Strike ↕</th>
+                                <th>Select</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-ready-body">
+                            <tr><td colspan="19" style="text-align:center; color:var(--text-secondary); padding:50px;">No scrips moved yet. Use the "⚡ Move" button on FnO Stocks tab.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- ═══════════════════════════════════════════════════════
+                     TRADE ENTRY PAGE
+                ═══════════════════════════════════════════════════════ -->
+                <div class="data-table-container" id="tab-trade-now"
+                     style="margin: 0 20px 20px 20px; flex:1; display:none; overflow-x:auto;">
+
+                    <!-- Trade Entry Header -->
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding: 10px 5px 10px 5px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span style="font-size:1.2rem; font-weight:700; background:linear-gradient(135deg,var(--profit),#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">&#9654; Trade Entry</span>
+                            <span id="trade-now-count" style="padding:3px 10px; background:var(--profit); color:#000; border-radius:12px; font-size:0.8rem; font-weight:bold;">0 instruments</span>
+                            <span style="padding:3px 8px; background:rgba(63,185,80,0.15); border:1px solid var(--profit); color:var(--profit); border-radius:4px; font-size:0.72rem; font-weight:600; letter-spacing:0.5px;">LIVE</span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <!-- Bulk Controls -->
+                            <select id="tn-bulk-side" style="padding:4px 8px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); outline:none; cursor:pointer;">
+                                <option value="" disabled selected>Select Side</option>
+                                <option value="BUY">Buy</option>
+                                <option value="SELL">Sell</option>
+                            </select>
+                            <select id="tn-bulk-signal" style="padding:4px 8px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); outline:none; cursor:pointer;">
+                                <option value="" disabled selected>Select Signal</option>
+                                <option value="Aggressive_Entry">Aggressive Entry</option>
+                                <option value="True_Limit_LTP">True Limit (LTP)</option>
+                                <option value="Limit_Below">Limit Below</option>
+                                <option value="Limit_Above">Limit Above</option>
+                            </select>
+                            <button id="btn-bulk-buy" onclick="app.submitBulkTradeEntry()" style="padding:4px 12px; font-size:0.8rem; font-weight:bold; background:var(--profit); color:#fff; border:none; border-radius:4px; cursor:pointer; margin-right:15px; display:inline-flex; align-items:center;">Buy</button>
+
+                            <!-- Execution Engine Parameters -->
+                            <div style="display:flex; align-items:center; gap:4px; margin-right: 10px; border-left: 1px solid var(--border-color); padding-left: 10px;">
+                                <span style="font-size:0.75rem; color:var(--text-secondary);" title="Collar Boundary Tolerance % for Pegged Execution & Price Chasing">Collar %:</span>
+                                <input type="number" id="tn-exec-slippage" value="3.0" step="0.5" style="width:45px; padding:3px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); text-align:center;">
+                            </div>
+                            <div style="display:flex; align-items:center; gap:4px; margin-right: 10px;">
+                                <span style="font-size:0.75rem; color:var(--text-secondary);" title="Timeout in seconds before placing sweep order">Timeout (s):</span>
+                                <input type="number" id="tn-exec-timeout" value="10" step="1" style="width:40px; padding:3px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); text-align:center;">
+                            </div>
+                            <div style="display:flex; align-items:center; gap:4px; margin-right: 10px;">
+                                <span style="font-size:0.75rem; color:var(--text-secondary);" title="Maximum number of cancellation and replacement retries">Retries:</span>
+                                <input type="number" id="tn-exec-retries" value="5" step="1" style="width:35px; padding:3px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); text-align:center;">
+                            </div>
+
+                            <label style="font-size:0.8rem; color:var(--accent); display:flex; align-items:center; gap:5px; font-weight:600;">
+                                <input type="checkbox" id="tn-hedge-enable" onchange="app.renderTradeNowTable()" style="width:14px; height:14px;"> Add Hedge
+                            </label>
+                            <div style="display:flex; align-items:center; gap:4px; margin-right: 10px;">
+                                <span style="font-size:0.75rem; color:var(--text-secondary);">Offset:</span>
+                                <input type="number" id="tn-hedge-offset" value="1" onchange="app.renderTradeNowTable()" style="width:45px; padding:3px; font-size:0.8rem; border-radius:4px; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); text-align:center;">
+                            </div>
+                            <button onclick="app.clearTradeNow()" style="padding:5px 14px; font-size:0.82rem; background:var(--bg-lighter); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; cursor:pointer;">&#128465; Clear</button>
+                        </div>
+                    </div>
+
+                    <table class="flex-grid" id="trade-now-table" style="min-width: 1400px;">
+                        <thead class="fno-header">
+                            <tr>
+                                <th>S.No</th>
+                                <th style="text-align:left; min-width:180px;">Symbol</th>
+                                <th style="color:#93c5fd;">Best Buy</th>
+                                <th style="color:#f87171;">Best Sell</th>
+                                <th>LTP</th>
+                                <th>High</th>
+                                <th>Low</th>
+                                <th>Change</th>
+                                <th>% change</th>
+                                <th>Qty</th>
+                                <th>BUY/SELL</th>
+                                <th>Entry Signal</th>
+                                <th>Entry Limit Price</th>
+                                <th>Entry Done @</th>
+                                <th>Entry Order ID</th>
+                                <th>Entry Remarks</th>
+                                <th>OI</th>
+                                <th>Action</th>
+                                <th style="width: 40px; text-align: center;"><input type="checkbox" id="tn-select-all-main" onchange="app.toggleSelectAllMain(this.checked)" checked style="width:14px; height:14px; cursor:pointer;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-now-body">
+                            <tr><td colspan="19" style="text-align:center; color:var(--text-secondary); padding:60px;">No instruments. Click "&#9654; Trade Now &rarr;" from Trade Ready to populate.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div id="trade-now-hedge-section" style="margin-top: 20px; display:none;">
+                        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                            <span style="font-size:1.0rem; font-weight:700; color:var(--accent);">&#128737;&#65039; Hedge Options</span>
+                            <span id="trade-now-hedge-count" style="padding:3px 10px; background:rgba(99, 102, 241, 0.2); color:#6366f1; border-radius:12px; font-size:0.75rem; font-weight:bold; border: 1px solid #6366f1;">0 hedges</span>
+                        </div>
+                        <table class="flex-grid" id="trade-now-hedge-table" style="min-width: 1400px;">
+                            <thead class="fno-header">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th style="text-align:left; min-width:180px;">Symbol</th>
+                                    <th style="color:#93c5fd;">Best Buy</th>
+                                    <th style="color:#f87171;">Best Sell</th>
+                                    <th>LTP</th>
+                                    <th>High</th>
+                                    <th>Low</th>
+                                    <th>Change</th>
+                                    <th>% change</th>
+                                    <th>Qty</th>
+                                    <th>BUY/SELL</th>
+                                    <th>Entry Signal</th>
+                                    <th>Entry Limit Price</th>
+                                    <th>Entry Done @</th>
+                                    <th>Entry Order ID</th>
+                                    <th>Entry Remarks</th>
+                                    <th>OI</th>
+                                    <th>Action</th>
+                                    <th style="width: 40px; text-align: center;"><input type="checkbox" id="tn-select-all-hedge" onchange="app.toggleSelectAllHedge(this.checked)" checked style="width:14px; height:14px; cursor:pointer;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="trade-now-hedge-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════
+                     TRADE EXIT PAGE
+                ═══════════════════════════════════════════════════════ -->
+                <div class="data-table-container" id="tab-trade-exit"
+                     style="margin: 0 20px 20px 20px; flex:1; display:none; overflow-x:auto;">
+
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding: 10px 5px 10px 5px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span style="font-size:1.2rem; font-weight:700; color:var(--loss);">&#9632; Trade Exit</span>
+                            <span id="trade-exit-count" style="padding:3px 10px; background:var(--loss); color:#000; border-radius:12px; font-size:0.8rem; font-weight:bold;">0 trades</span>
+                            <div style="margin-left: 20px; display:flex; gap: 18px; flex-wrap:wrap; font-size: 0.88rem; font-weight:bold; background:rgba(0,0,0,0.3); padding:5px 16px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); align-items:center;">
+                                <span style="color:var(--text-secondary);">Broker MTM:&nbsp;<span id="te-broker-mtm" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                                <span style="color:rgba(255,255,255,0.15);">|</span>
+                                <span style="color:var(--text-secondary);">Total P&amp;L:&nbsp;<span id="te-total-pl" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                                <span style="color:rgba(255,255,255,0.15);">|</span>
+                                <span style="color:var(--text-secondary);">Open P&amp;L:&nbsp;<span id="te-open-pl" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                                <span style="color:rgba(255,255,255,0.15);">|</span>
+                                <span style="color:var(--text-secondary);">Capital Blocked:&nbsp;<span id="te-capital-blocked" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <input type="checkbox" id="te-overall-target-active" style="width:16px; height:16px;">
+                                <span style="font-weight:600; font-size:0.85rem; color:var(--text-primary);">Overall Target:</span>
+                                <input type="number" id="te-overall-target" placeholder="Amt" style="width:70px; padding:4px; font-size:0.85rem; border-radius:4px; border:1px solid var(--border-color); background:var(--bg-lighter); color:var(--text-primary);">
+                            </div>
+                            <button class="primary" style="background:var(--accent); color:#000; padding:6px 12px; font-weight:bold;" onclick="app.cancelSelectedTrades()">Cancel</button>
+                            <button class="primary" style="background:var(--loss); padding:6px 12px; font-weight:bold;" onclick="app.exitAllTrades()">EXIT ALL</button>
+                        </div>
+                    </div>
+
+                    <table class="flex-grid" id="trade-exit-table" style="min-width: 1600px;">
+                        <thead class="fno-header">
+                            <tr>
+                                <th>S.No</th>
+                                <th style="text-align:left; min-width:160px;">Symbol</th>
+                                <th title="Total quantity">Qty</th>
+                                <th>Side</th>
+                                <th>Status</th>
+                                <th>Entry @</th>
+                                <th>LTP</th>
+                                <th>Chg2Entry</th>
+                                <th>% Chg2Entry</th>
+                                <th style="color:var(--accent);">Tot P&amp;L (₹)</th>
+                                <th title="SL Type">SL Type</th>
+                                <th title="Total ₹ loss for this trade. SL price = Entry ± (SL₹ ÷ LotSize)">SL Val(₹)</th>
+                                <th title="Initial SL price = Entry ± (SL₹ ÷ LotSize) — computed from SL Value">SL Price</th>
+                                <th title="Trailing Stop Loss: SL moves up with LTP on every tick" style="text-align:center;">
+                                    TSL <br>
+                                    <input type="checkbox" id="te-master-tsl" onchange="app.toggleMasterTSL(this.checked)" style="width:14px; height:14px; margin-top:3px; cursor:pointer;">
+                                </th>
+                                <th title="Latest trailing SL price (updates on every tick when TSL is ON)">Latest SL</th>
+                                <th title="Move SL to entry cost when ₹ profit reaches this amount">SL2Cost(₹)</th>
+                                <th title="Target profit in ₹ — auto-exit when P&amp;L reaches this">Target(₹)</th>
+                                <th title="Computed price level where Target ₹ will be hit">Tgt Price</th>
+                                <th>Add/Exit</th>
+                                <th>Exit Mode</th>
+                                <th>Exit Price</th>
+                                <th>Exit @</th>
+                                <th>Select</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trade-exit-body">
+                            <tr><td colspan="24" style="text-align:center; color:var(--text-secondary); padding:60px;">No active or pending trades to manage.</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div id="trade-exit-hedge-section" style="margin-top: 20px; display:none;">
+                        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+                            <span style="font-size:1.0rem; font-weight:700; color:var(--accent);">&#128737;&#65039; Hedge Exits</span>
+                            <span id="trade-exit-hedge-count" style="padding:3px 10px; background:rgba(99, 102, 241, 0.2); color:#6366f1; border-radius:12px; font-size:0.75rem; font-weight:bold; border: 1px solid #6366f1;">0 hedges</span>
+                            <div style="margin-left:8px; display:flex; gap:16px; font-size:0.85rem; font-weight:bold; background:rgba(0,0,0,0.3); padding:4px 14px; border-radius:15px; border:1px solid rgba(99,102,241,0.25); align-items:center;">
+                                <span style="color:var(--text-secondary);">Hedge Total P&amp;L:&nbsp;<span id="te-hedge-total-pl" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                                <span style="color:rgba(255,255,255,0.15);">|</span>
+                                <span style="color:var(--text-secondary);">Hedge Open P&amp;L:&nbsp;<span id="te-hedge-open-pl" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                            </div>
+                        </div>
+                        <table class="flex-grid" id="trade-exit-hedge-table" style="min-width: 1600px;">
+                            <thead class="fno-header">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th style="text-align:left; min-width:160px;">Symbol</th>
+                                    <th title="Total quantity">Qty</th>
+                                    <th>Side</th>
+                                    <th>Status</th>
+                                    <th>Entry @</th>
+                                    <th>LTP</th>
+                                    <th>Chg2Entry</th>
+                                    <th>% Chg2Entry</th>
+                                    <th style="color:var(--accent);">Tot P&amp;L (₹)</th>
+                                    <th title="SL Type">SL Type</th>
+                                    <th title="Total ₹ loss">SL Val(₹)</th>
+                                    <th title="Initial SL price computed from SL Value">SL Price</th>
+                                    <th title="Trailing Stop Loss" style="text-align:center;">
+                                        TSL <br>
+                                        <input type="checkbox" id="te-master-tsl-hedge" onchange="app.toggleMasterTSLHedge(this.checked)" style="width:14px; height:14px; margin-top:3px; cursor:pointer;">
+                                    </th>
+                                    <th title="Latest trailing SL price">Latest SL</th>
+                                    <th title="Move SL to cost when ₹ profit reaches this">SL2Cost(₹)</th>
+                                    <th title="Target profit in ₹">Target(₹)</th>
+                                    <th title="Computed target price level">Tgt Price</th>
+                                    <th>Add/Exit</th>
+                                    <th>Exit Mode</th>
+                                    <th>Exit Price</th>
+                                    <th>Exit @</th>
+                                    <th>Select</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="trade-exit-hedge-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════
+                     TRADE TERMINAL PAGE
+                ═══════════════════════════════════════════════════════ -->
+                <div class="data-table-container" id="tab-trade-terminal"
+                     style="margin: 0 20px 20px 20px; flex:1; display:none; overflow-x:auto;">
+                    
+                    <div style="display:flex; align-items:center; justify-content:space-between; padding: 10px 5px 10px 5px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <span style="font-size:1.2rem; font-weight:700; color:#a855f7;">🖥️ Trade Terminal</span>
+                            <span id="trade-terminal-count" style="padding:3px 10px; background:#a855f7; color:#000; border-radius:12px; font-size:0.8rem; font-weight:bold;">0 rows</span>
+                            <div style="margin-left: 10px; display:flex; gap: 15px; font-size: 0.95rem; font-weight:bold; background:rgba(0,0,0,0.3); padding:4px 15px; border-radius:15px; border:1px solid rgba(255,255,255,0.1);">
+                                <span style="color:var(--text-secondary);">Terminal P&amp;L: <span id="term-table-mtm" style="color:var(--text-primary);">&#8377;0.00</span></span>
+                            </div>
+                            <span style="font-size:0.75rem; color:var(--text-secondary); margin-left: 5px;">(Drag columns by headers to rearrange)</span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <button class="primary" style="background:#22c55e; padding:6px 14px; font-weight:bold; color:#000; border:none; border-radius:4px; cursor:pointer;" onclick="app.submitAllTerminalEntries()">EXECUTE ALL ▶</button>
+                            <button class="primary" style="background:var(--accent); color:#000; padding:6px 12px; font-weight:bold; border:none; border-radius:4px; cursor:pointer;" onclick="app.cancelSelectedTerminalTrades()">Cancel</button>
+                            <button class="primary" style="background:var(--loss); padding:6px 12px; font-weight:bold; border:none; border-radius:4px; cursor:pointer;" onclick="app.exitAllTerminalTrades()">EXIT ALL</button>
+                            <button class="primary" style="background:#a855f7; padding:6px 12px; font-weight:bold; color:#000; border:none; border-radius:4px; cursor:pointer;" onclick="app.addTerminalRow()">Add Next Row (+)</button>
+                        </div>
+                    </div>
+                    
+                    <table class="flex-grid" id="trade-terminal-table" style="min-width: 2500px;">
+                        <thead class="fno-header">
+                            <tr id="trade-terminal-headers">
+                                <!-- Rendered dynamically in app.js for drag and drop rearrangement -->
+                            </tr>
+                        </thead>
+                        <tbody id="trade-terminal-body">
+                            <!-- Rendered dynamically in app.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Futures Grid -->
+                <div class="data-table-container" id="tab-futures" style="margin: 0 20px 20px 20px; flex:1; display:none;">
+                    <div id="react-futures-root"></div>
+                </div>
+
+                <!-- Positions Grid -->
+                <div class="data-table-container" id="tab-positions" style="margin: 0 20px 20px 20px; flex:1; display:none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Product</th>
+                                <th>Net Qty</th>
+                                <th>Avg Price</th>
+                                <th>LTP</th>
+                                <th>M2M PnL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positions-body">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Orders Grid -->
+                <div class="data-table-container" id="tab-orders" style="margin: 0 20px 20px 20px; flex:1; display:none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th onclick="app.sortOrders('norenordno')" style="cursor:pointer;white-space:nowrap;">Order No <span id="ob-sort-norenordno">↕</span></th>
+                                <th onclick="app.sortOrders('tsym')" style="cursor:pointer;">Symbol <span id="ob-sort-tsym">↕</span></th>
+                                <th>Type</th>
+                                <th onclick="app.sortOrders('trantype')" style="cursor:pointer;">B/S <span id="ob-sort-trantype">↕</span></th>
+                                <th onclick="app.sortOrders('qty')" style="cursor:pointer;">Qty <span id="ob-sort-qty">↕</span></th>
+                                <th onclick="app.sortOrders('prc')" style="cursor:pointer;white-space:nowrap;">Price <span id="ob-sort-prc">↕</span></th>
+                                <th onclick="app.sortOrders('avgprc')" style="cursor:pointer;white-space:nowrap;">Avg Price <span id="ob-sort-avgprc">↕</span></th>
+                                <th onclick="app.sortOrders('status')" style="cursor:pointer;">Status <span id="ob-sort-status">↕</span></th>
+                                <th onclick="app.sortOrders('norentm')" style="cursor:pointer;white-space:nowrap;">Date &amp; Time <span id="ob-sort-norentm">↕</span></th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-body">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="notifications" id="notifications">
+        <!-- Toasts injected here -->
+    </div>
+
+    <script>
+        document.write('<script type="text/babel" src="react_app.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+    <!-- ════════════════════════════════════════════════════════
+         ADD POSITION MODAL — shown when "Add" is selected in Trade Exit
+         ════════════════════════════════════════════════════════ -->
+    <div id="add-position-modal" style="
+        display:none; position:fixed; inset:0; z-index:9999;
+        background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);
+        align-items:center; justify-content:center;">
+
+        <div style="
+            background:var(--bg-card); border:1px solid var(--border-color);
+            border-radius:16px; box-shadow:0 24px 64px rgba(0,0,0,0.6);
+            width:700px; max-width:96vw; padding:0; overflow:hidden;
+            animation: modalPop 0.18s cubic-bezier(.175,.885,.32,1.275);">
+
+            <!-- Header -->
+            <div style="
+                background:linear-gradient(135deg,rgba(var(--profit-rgb,.2,224,143),0.15),rgba(59,130,246,0.12));
+                border-bottom:1px solid var(--border-color);
+                padding:18px 24px; display:flex; align-items:center; justify-content:space-between;">
+                <div>
+                    <div style="font-size:1.1rem;font-weight:800;color:var(--text-primary);letter-spacing:0.5px;">
+                        ➕ Add to Position
+                    </div>
+                    <div id="add-modal-subtitle" style="font-size:0.78rem;color:var(--text-secondary);margin-top:2px;"></div>
+                </div>
+                <button onclick="app.closeAddModal()" style="
+                    background:transparent;border:1px solid var(--border-color);
+                    color:var(--text-secondary);border-radius:8px;padding:6px 12px;
+                    cursor:pointer;font-size:0.85rem;transition:all 0.15s;"
+                    onmouseover="this.style.background='var(--bg-lighter)'"
+                    onmouseout="this.style.background='transparent'">✕ Close</button>
+            </div>
+
+            <!-- Live Price Strip -->
+            <div style="
+                background:var(--bg-lighter); border-bottom:1px solid var(--border-color);
+                padding:10px 24px; display:flex; align-items:center; gap:32px;">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">LTP</span>
+                    <span id="add-modal-ltp" style="font-size:1.25rem;font-weight:800;color:var(--accent);">—</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">Bid</span>
+                    <span id="add-modal-bid" style="font-size:1rem;font-weight:700;color:#93c5fd;">—</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">Ask</span>
+                    <span id="add-modal-ask" style="font-size:1rem;font-weight:700;color:#f87171;">—</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">High</span>
+                    <span id="add-modal-high" style="font-size:0.95rem;font-weight:600;color:var(--profit);">—</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">Low</span>
+                    <span id="add-modal-low" style="font-size:0.95rem;font-weight:600;color:var(--loss);">—</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <span style="font-size:0.68rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;">OI</span>
+                    <span id="add-modal-oi" style="font-size:0.95rem;font-weight:600;color:var(--text-primary);">—</span>
+                </div>
+            </div>
+
+            <!-- 4×4 Grid of Entry Fields -->
+            <div style="padding:24px; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:18px 20px;">
+
+                <!-- Row 1 -->
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Symbol</label>
+                    <input id="add-modal-symbol" type="text" readonly style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-weight:700;font-size:0.85rem;
+                        cursor:not-allowed;opacity:0.8;">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Exchange</label>
+                    <input id="add-modal-exchange" type="text" readonly style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-size:0.85rem;
+                        cursor:not-allowed;opacity:0.8;">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Lot Size</label>
+                    <input id="add-modal-lotsize" type="text" readonly style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--accent);font-weight:700;font-size:0.85rem;
+                        cursor:not-allowed;opacity:0.8;">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Original Entry @</label>
+                    <input id="add-modal-entryat" type="text" readonly style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--profit);font-weight:700;font-size:0.85rem;
+                        cursor:not-allowed;opacity:0.8;">
+                </div>
+
+                <!-- Row 2 -->
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Qty to Add</label>
+                    <input id="add-modal-qty" type="number" min="1" placeholder="Enter qty" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-weight:700;font-size:0.85rem;
+                        outline:none;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--accent)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Side</label>
+                    <select id="add-modal-side" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-size:0.85rem;
+                        outline:none;cursor:pointer;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--accent)'"
+                        onblur="this.style.borderColor='var(--border-color)'"
+                        onchange="app.addModalRefreshPrice()">
+                        <option value="" disabled selected>Select</option>
+                        <option value="BUY">BUY</option>
+                        <option value="SELL">SELL</option>
+                    </select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Order Type</label>
+                    <select id="add-modal-signal" onchange="app.addModalSignalChange()" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-size:0.85rem;
+                        outline:none;cursor:pointer;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--accent)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                        <option value="" disabled selected>Select</option>
+                        <option value="Market">Market</option>
+                        <option value="LTP">LTP</option>
+                        <option value="Limit">Limit</option>
+                    </select>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Limit Price</label>
+                    <input id="add-modal-limit" type="number" step="0.05" disabled placeholder="Auto" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--text-primary);font-size:0.85rem;
+                        outline:none;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--accent)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                </div>
+
+                <!-- Row 3 — SL & Target for this additional tranche -->
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">SL Value (₹)</label>
+                    <input id="add-modal-slvalue" type="number" placeholder="e.g. 500" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--loss);font-size:0.85rem;
+                        outline:none;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--loss)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Target (₹)</label>
+                    <input id="add-modal-target" type="number" placeholder="e.g. 1000" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--profit);font-size:0.85rem;
+                        outline:none;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--profit)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">SL2Cost (₹)</label>
+                    <input id="add-modal-sl2cost" type="number" placeholder="e.g. 300" style="
+                        padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);
+                        border-radius:8px;color:var(--accent);font-size:0.85rem;
+                        outline:none;transition:border 0.15s;"
+                        onfocus="this.style.borderColor='var(--accent)'"
+                        onblur="this.style.borderColor='var(--border-color)'">
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;">
+                    <label style="font-size:0.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px;">Trail SL (TSL)</label>
+                    <div style="padding:10px 12px;background:var(--bg-lighter);border:1px solid var(--border-color);border-radius:8px;display:flex;align-items:center;gap:10px;">
+                        <input id="add-modal-tsl" type="checkbox" style="width:18px;height:18px;cursor:pointer;accent-color:var(--profit);">
+                        <span style="font-size:0.82rem;color:var(--text-secondary);">Enable TSL</span>
+                    </div>
+                </div>
+
+                <!-- Row 4 — Status + Submit span full width -->
+                <div id="add-modal-status-box" style="
+                    grid-column:1/4; display:flex; align-items:center;
+                    background:rgba(255,255,255,0.04); border:1px solid var(--border-color);
+                    border-radius:8px; padding:12px 16px; gap:10px; min-height:44px;">
+                    <span style="font-size:0.75rem;color:var(--text-secondary);font-style:italic;">Fill in fields above and click Submit.</span>
+                </div>
+                <div style="display:flex;flex-direction:column;justify-content:flex-end;">
+                    <button id="add-modal-submit-btn" onclick="app.submitAddPosition()" style="
+                        padding:12px 0;border:none;border-radius:8px;font-size:0.9rem;font-weight:800;
+                        background:linear-gradient(135deg,var(--profit),#16a34a);color:#fff;
+                        cursor:pointer;letter-spacing:0.5px;transition:all 0.15s;
+                        box-shadow:0 4px 16px rgba(0,200,100,0.3);"
+                        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 24px rgba(0,200,100,0.45)'"
+                        onmouseout="this.style.transform='';this.style.boxShadow='0 4px 16px rgba(0,200,100,0.3)'">
+                        ➕ Submit Add Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BROKER SELECTION MODAL -->
+    <div id="broker-selection-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:10000; align-items:center; justify-content:center;">
+        <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; width:480px; max-width:90%; padding:28px; box-shadow:0 24px 60px rgba(0,0,0,0.7); animation:modalPop 0.25s ease-out;">
+            <div style="text-align:center; margin-bottom:24px;">
+                <h2 style="font-size:1.4rem; font-weight:800; color:var(--text-primary); margin-bottom:8px;">⚡ Connect Broker Account</h2>
+                <p style="font-size:0.85rem; color:var(--text-secondary);">Select which broker API to connect for real-time market data & order execution.</p>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:14px; margin-bottom:24px;">
+                <!-- Flattrade Card -->
+                <div onclick="app.selectBrokerModal('FLATTRADE')" style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:var(--bg-lighter); border:2px solid var(--border-color); border-radius:12px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#38bdf8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform=''">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <span style="font-size:1.8rem;">⚡</span>
+                        <div>
+                            <div style="font-weight:800; font-size:1.05rem; color:var(--text-primary);">Flattrade Broker</div>
+                            <div style="font-size:0.75rem; color:var(--text-secondary);">Free API • Noren/PiConnect Engine</div>
+                        </div>
+                    </div>
+                    <button style="padding:6px 16px; border:none; border-radius:6px; background:#38bdf8; color:#000; font-size:0.8rem; font-weight:800; cursor:pointer;">Connect</button>
+                </div>
+
+                <!-- Upstox Card -->
+                <div onclick="app.selectBrokerModal('UPSTOX')" style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px; background:var(--bg-lighter); border:2px solid var(--border-color); border-radius:12px; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.borderColor='#a855f7'; this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform=''">
+                    <div style="display:flex; align-items:center; gap:14px;">
+                        <span style="font-size:1.8rem;">🚀</span>
+                        <div>
+                            <div style="font-weight:800; font-size:1.05rem; color:var(--text-primary);">Upstox Broker API v2</div>
+                            <div style="font-size:0.75rem; color:var(--text-secondary);">OAuth 2.0 • Protobuf WebSocket Stream</div>
+                        </div>
+                    </div>
+                    <button style="padding:6px 16px; border:none; border-radius:6px; background:#a855f7; color:#fff; font-size:0.8rem; font-weight:800; cursor:pointer;">Connect</button>
+                </div>
+            </div>
+
+            <div style="text-align:center;">
+                <button onclick="document.getElementById('broker-selection-modal').style.display='none'" style="background:transparent; border:none; color:var(--text-secondary); font-size:0.8rem; cursor:pointer; text-decoration:underline;">Skip & Continue in Paper Mode</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes modalPop {
+            from { opacity:0; transform:scale(0.88) translateY(16px); }
+            to   { opacity:1; transform:scale(1) translateY(0); }
+        }
+        #add-position-modal.open { display:flex !important; }
+    </style>
+
+</body>
+</html>
